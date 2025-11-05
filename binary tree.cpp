@@ -17,12 +17,12 @@ class Bitree
 {
 public:
     Bitree();
-    ~Bitree();
+    ~Bitree();//not have premeter不带有参数!!!!!;
     void frontshow(root<datatype>* bt);
     void midshow(root<datatype>* bt);
     void aftershow(root<datatype>* bt);
     void levelshow(root<datatype>* bt);
-
+    void releasememory(root<datatype>* bt);
 private:
     root<datatype>* root0;
 };
@@ -48,19 +48,19 @@ Bitree<datatype>::Bitree()
 }
 
 template<typename datatype>
-Bitree<datatype>::~Bitree()
+Bitree<datatype>::~Bitree()//not have premeter不带有参数!!!!!
 {
-    if(bt == nullptr)
-    {
-        return;
-    }
-    else
-    {
-        //after deleting left and right subtrees, delete the root node
-        ~Bitree<datatype>(bt -> leftchild);
-        ~Bitree<datatype>(bt -> rightchild);
-        delete bt;
-    }
+    //  if(bt == nullptr)
+    // {
+    //     return;
+    // }
+    // else
+    // {
+    //     cout<<bt ->data<<endl;
+    //     frontshow(bt -> leftchild);
+    //     frontshow(bt -> rightchild);
+    // }
+    releasememory(root0);
 }
 
 template<typename datatype>
@@ -75,6 +75,21 @@ void Bitree<datatype>::frontshow(root<datatype>* bt)
         cout<<bt ->data<<endl;
         frontshow(bt -> leftchild);
         frontshow(bt -> rightchild);
+    }
+}
+
+template<typename datatype>
+void Bitree<datatype>::releasememory(root<datatype>* bt)
+{
+    if(bt == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        releasememory(bt -> leftchild);
+        releasememory(bt -> rightchild);
+        delete bt;
     }
 }
 
