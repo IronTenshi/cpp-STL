@@ -93,6 +93,21 @@ void Bitree<datatype>::releasememory(root<datatype>* bt)
     }
 }
 
+template<typename datatype>
+void Bitree<datatype>::midshow(root<datatype>* bt)
+{
+    if(bt == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        midshow(bt -> leftchild);
+        cout<<bt ->data<<endl;
+        midshow(bt -> rightchild);
+    }
+}
+
 int main()
 {
     
