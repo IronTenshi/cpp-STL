@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 
 using std::cout;
 using std::cin;
@@ -108,7 +109,48 @@ void Bitree<datatype>::midshow(root<datatype>* bt)
     }
 }
 
+template<typename datatype>
+void Bitree<datatype>::aftershow(root<datatype>* bt)
+{
+    if(bt == nullptr)
+    {
+        return;
+    }
+    else
+    {
+        aftershow(bt -> leftchild);
+        aftershow(bt -> rightchild);
+        cout<<bt ->data<<endl;
+    }
+}
+
+template<typename datatype>
+void Bitree<datatype>::levelshow(root<datatype>* bt)
+{
+    //using the queue to store the node
+    std::queue<root<datatype>*> q;
+    if(bt != nullptr)
+    {
+        q.push(bt);
+    }
+    while(!q.empty())
+    {
+        //get the front node
+        root<datatype>* current = q.front();
+        q.pop();
+        cout<<current->data<<endl;
+        if(current->leftchild != nullptr)
+        {
+            q.push(current->leftchild);
+        }
+        if(current->rightchild != nullptr)
+        {
+            q.push(current->rightchild);
+        }
+    }
+}
+
 int main()
 {
-    
+    cout<<"create a binary tree:"<<endl;
 }
