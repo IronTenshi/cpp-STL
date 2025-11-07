@@ -25,7 +25,7 @@ public:
     void aftershow(root<datatype>* bt);
     void levelshow(root<datatype>* bt);
     void releasememory(root<datatype>* bt);
-    void createtree(root<datatype>* bt); //function to create tree
+    void createtree(root<datatype>*& bt); //function to create tree
     root<datatype>* getroot()
     {
         return root0;
@@ -39,7 +39,7 @@ private:
 };
 
 template<typename datatype>//it is preorder create tree
-void Bitree<datatype>::createtree(root<datatype>* bt)
+void Bitree<datatype>::createtree(root<datatype>*& bt)
 {
     datatype ch;
     cin>>ch;
@@ -89,7 +89,7 @@ void Bitree<datatype>::frontshow(root<datatype>* bt)
     }
     else
     {
-        cout<<bt ->data<<endl;
+        cout<<bt ->data<<"  ";
         frontshow(bt -> leftchild);
         frontshow(bt -> rightchild);
     }
@@ -120,7 +120,7 @@ void Bitree<datatype>::midshow(root<datatype>* bt)
     else
     {
         midshow(bt -> leftchild);
-        cout<<bt ->data<<endl;
+        cout<<bt ->data<<"  ";
         midshow(bt -> rightchild);
     }
 }
@@ -136,7 +136,7 @@ void Bitree<datatype>::aftershow(root<datatype>* bt)
     {
         aftershow(bt -> leftchild);
         aftershow(bt -> rightchild);
-        cout<<bt ->data<<endl;
+        cout<<bt ->data<<"  ";
     }
 }
 
@@ -154,7 +154,7 @@ void Bitree<datatype>::levelshow(root<datatype>* bt)
         //get the front node
         root<datatype>* current = q.front();
         q.pop();
-        cout<<current->data<<endl;
+        cout<<current->data<<"  ";
         if(current->leftchild != nullptr)
         {
             q.push(current->leftchild);
@@ -170,13 +170,14 @@ int main()
 {
     cout<<"create a binary tree:"<<endl;
     Bitree<char> btree;
-    btree.createtree(btree.getroot());
+    root<char>* root0 = btree.getroot();
+    btree.createtree(root0);
     cout<<"front show:"<<endl;
-    btree.frontshow(btree.getroot());
+    btree.frontshow(root0);
     cout<<"mid show:"<<endl;
-    btree.midshow(btree.getroot());
+    btree.midshow(root0);
     cout<<"after show:"<<endl;
-    btree.aftershow(btree.getroot());
+    btree.aftershow(root0);
     cout<<"level show:"<<endl;
-    btree.levelshow(btree.getroot());
+    btree.levelshow(root0);
 }
