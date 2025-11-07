@@ -24,10 +24,6 @@ public:
     void aftershow(root<datatype>* bt);
     void levelshow(root<datatype>* bt);
     void releasememory(root<datatype>* bt);
-    root<datatype>* getroot()
-    {
-        return root0;
-    }
 private:
     root<datatype>* root0;
 };
@@ -47,10 +43,8 @@ Bitree<datatype>::Bitree()
     {
         bt = new root<datatype>;
         bt -> data = ch;//initialize the data of the root node
-        // bt ->leftchild = Bitree<datatype>();
-        // bt ->rightchild = Bitree<datatype>();
-        bt -> leftchild = Bitree<datatype>().getroot();//create the left child tree
-        bt -> rightchild = Bitree<datatype>().getroot();//create the right child tree
+        bt ->leftchild = Bitree<datatype>();
+        bt ->rightchild = Bitree<datatype>();
     }
 }
 
@@ -159,13 +153,4 @@ void Bitree<datatype>::levelshow(root<datatype>* bt)
 int main()
 {
     cout<<"create a binary tree:"<<endl;
-    Bitree<char> bitree;
-    cout<<"front show:"<<endl;
-    bitree.frontshow(bitree.getroot());
-    cout<<"mid show:"<<endl;
-    bitree.midshow(bitree.getroot());
-    cout<<"after show:"<<endl;
-    bitree.aftershow(bitree.getroot());
-    cout<<"level show:"<<endl;
-    bitree.levelshow(bitree.getroot());
 }
