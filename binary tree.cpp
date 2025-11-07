@@ -93,6 +93,7 @@ void Bitree<datatype>::frontshow(root<datatype>* bt)
         frontshow(bt -> leftchild);
         frontshow(bt -> rightchild);
     }
+    cout<<endl;
 }
 
 template<typename datatype>
@@ -123,6 +124,7 @@ void Bitree<datatype>::midshow(root<datatype>* bt)
         cout<<bt ->data<<"  ";
         midshow(bt -> rightchild);
     }
+    cout<<endl;
 }
 
 template<typename datatype>
@@ -138,6 +140,7 @@ void Bitree<datatype>::aftershow(root<datatype>* bt)
         aftershow(bt -> rightchild);
         cout<<bt ->data<<"  ";
     }
+    cout<<endl;
 }
 
 template<typename datatype>
@@ -164,6 +167,7 @@ void Bitree<datatype>::levelshow(root<datatype>* bt)
             q.push(current->rightchild);
         }
     }
+    cout<<endl;
 }
 
 int main()
