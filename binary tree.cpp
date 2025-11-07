@@ -11,6 +11,7 @@ struct root
     datatype data;
     root* leftchild;
     root* rightchild;
+    root(): leftchild(nullptr), rightchild(nullptr) {}
 };
 
 template<typename datatype>
