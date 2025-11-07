@@ -25,21 +25,25 @@ public:
     void aftershow(root<datatype>* bt);
     void levelshow(root<datatype>* bt);
     void releasememory(root<datatype>* bt);
+    void createtree(root<datatype>* bt); //function to create tree
     root<datatype>* getroot()
     {
         return root0;
+    }
+    root<datatype>* inputroot(root<datatype>* root0)
+    {
+        this->root0 = root0;
     }
 private:
     root<datatype>* root0;
 };
 
-template<typename datatype>
-Bitree<datatype>::Bitree()
+template<typename datatype>//it is preorder create tree
+void Bitree<datatype>::createtree(root<datatype>* bt)
 {
-    root<datatype>* bt;//bt is pointer to the root node
-    char ch;
-    cout<<"please input the data of the new node(if you input a '#',it means NULL): "<<endl;
+    datatype ch;
     cin>>ch;
+    cout<<"input data:(if input the #, it means NULL)"<<ch<<endl;
     if(ch == '#')
     {
         bt = nullptr;
@@ -47,12 +51,17 @@ Bitree<datatype>::Bitree()
     else
     {
         bt = new root<datatype>;
-        bt -> data = ch;//initialize the data of the root node
-        // bt ->leftchild = Bitree<datatype>();
-        // bt ->rightchild = Bitree<datatype>();
-        bt -> leftchild = Bitree<datatype>().root0;
-        bt -> rightchild = Bitree<datatype>().root0;
+        bt -> data = ch;
+        createtree(bt -> leftchild);
+        createtree(bt -> rightchild);
     }
+}
+
+template<typename datatype>
+Bitree<datatype>::Bitree()
+{
+    root0 = new root<datatype>;
+    root0 = nullptr;
 }
 
 template<typename datatype>
@@ -161,6 +170,7 @@ int main()
 {
     cout<<"create a binary tree:"<<endl;
     Bitree<char> btree;
+    btree.createtree(btree.getroot());
     cout<<"front show:"<<endl;
     btree.frontshow(btree.getroot());
     cout<<"mid show:"<<endl;
