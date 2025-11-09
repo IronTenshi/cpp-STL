@@ -1,4 +1,9 @@
 #include<iostream>
+#include<vector>
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 template<typename datatype>
 struct root
@@ -15,21 +20,15 @@ class binary_tree
 private:
     root<datatype>* tree_root;
     void PreDisplay();
-
+    
 public:
-    binary_tree()//initailizing the root 
-    {
-        tree_root = new root<datatype>(datatype());//create a stack object of the datatype;
-        tree_root = nullptr;
-    }
-
-    void PreCreate();
-    void InorderCreate();
+    binary_tree();//by Inorderdisplay and Preoderdisplay create binary tree;
+    ~binary_tree();
     int GetHeight(root<datatype>* node);
     int GetLeavesCount();
     int GetCount();
     int PreDisplayLevels();
     int OnlyChildCount();
     int OnlyLeftChildCount();
-    int FullChildCount();
+    int FullChildCount();//degree 2 nodes count;
 };
