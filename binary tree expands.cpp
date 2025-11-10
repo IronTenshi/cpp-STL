@@ -22,7 +22,7 @@ private:
     void PreDisplay();
     
 public:
-    binary_tree();//by Inorderdisplay and Preoderdisplay create binary tree;
+    binary_tree(std::vector<datatype>& PreDisplay, std::vector<datatype>& InorderDisplay);//by Inorderdisplay and Preoderdisplay create binary tree;leetcode 105;
     ~binary_tree();
     int GetHeight(root<datatype>* node);
     int GetLeavesCount();
@@ -32,3 +32,10 @@ public:
     int OnlyLeftChildCount();
     int FullChildCount();//degree 2 nodes count;
 };
+
+template<typename datatype>
+binary_tree<datatype>::binary_tree(std::vector<datatype>& PreDisplay, std::vector<datatype>& InorderDisplay)
+{
+    //leetcode 105;
+    
+}
