@@ -106,3 +106,9 @@ int binary_tree<datatype>::GetHeight(root<datatype>* node)
     int right_height = GetHeight(node->right);
     return 1 + std::max(left_height, right_height);
 }
+
+template<typename datatype>
+int binary_tree<datatype>::GetCount()
+{
+    
+}
