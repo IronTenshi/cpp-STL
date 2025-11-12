@@ -24,17 +24,20 @@ class binary_tree
 {
 private:
     root<datatype>* tree_root;
-    void PreDisplay()
+    int counter;
+    void PreDisplay(root<datatype>* node)
     {
-        if(tree_root==nullptr)
+        counter++;
+        if(node==nullptr)
         {
+            counter--;
             return;
         }
-        cout<<tree_root->data<<" ";
-        PreDisplay(tree_root->left);
-        PreDisplay(tree_root->right);
+        cout<<node->data<<" ";
+        PreDisplay(node->left);
+        PreDisplay(node->right);
     }
-    
+
 public:
     binary_tree(std::vector<datatype>& PreDisplay, std::vector<datatype>& InorderDisplay);//by Inorderdisplay and Preoderdisplay create binary tree;leetcode 105;
     ~binary_tree();
@@ -44,7 +47,7 @@ public:
     int GetLeavesCount();
     int GetCount();
     int PreDisplayLevels();
-    int OnlyChildCount();
+    int OnlyOneChildCount();
     int OnlyLeftChildCount();
     int FullChildCount();//degree 2 nodes count;
 };
@@ -110,5 +113,64 @@ int binary_tree<datatype>::GetHeight(root<datatype>* node)
 template<typename datatype>
 int binary_tree<datatype>::GetCount()
 {
-    
+    int counter = 0;
+    PreDisplay(tree_root);
+    return counter;
+}
+
+template<typename datatype>
+int binary_tree<datatype>::GetLeavesCount()
+{
+    int count2 = 0;
+    void mygetconter(root<datatype>* node)
+    {
+        if(node->left == nullptr&&node->right == nullptr)
+        {
+            count2++;
+        }
+        if(node == nullptr)
+        {
+            return;
+        }
+        mygetconter(node->left);
+        mygetconter(node->right);
+    }
+    mygetconter(tree_root);
+    return count2;
+}
+
+template<typename datatype>
+int binary_tree<datatype>::OnlyOneChildCount()
+{
+    int count3 = 0;
+    void onlyonechildpredisplay(root<datatype>* node)
+    {
+        if((node->left == nullptr&&node->right != nullptr)||(node->left != nullptr&& node->right == nullptr))
+        {
+            count3++;
+        }
+        if()
+    }
+}
+
+template<typename datatype>
+int binary_tree<datatype>::OnlyLeftChildCount()
+{
+
+}
+
+template<typename datatype>
+int binary_tree<datatype>::PreDisplayLevels()
+{
+
+}
+template<typename datatpe>
+int binary_tree<datatype>::FullChildCount()
+{
+
+}
+
+int main()
+{
+
 }
