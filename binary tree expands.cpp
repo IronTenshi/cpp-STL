@@ -24,19 +24,6 @@ class binary_tree
 {
 private:
     root<datatype>* tree_root;
-    int counter;
-    void PreDisplay(root<datatype>* node)
-    {
-        counter++;
-        if(node==nullptr)
-        {
-            counter--;
-            return;
-        }
-        cout<<node->data<<" ";
-        PreDisplay(node->left);
-        PreDisplay(node->right);
-    }
 
 public:
     binary_tree(std::vector<datatype>& PreDisplay, std::vector<datatype>& InorderDisplay);//by Inorderdisplay and Preoderdisplay create binary tree;leetcode 105;
@@ -45,11 +32,15 @@ public:
     int GetHeight();
     int GetHeight(root<datatype>* node);
     int GetLeavesCount();
+    int GetLeavesCount(root<datatype>* node);
     int GetCount();
+    int GetCount(root<datatype>* node);
     int PreDisplayLevels();
+    int PreDisplayLevels(root<datatype>* node);//degree = 2
     int OnlyOneChildCount();
+    int OnlyOneChildCount(root<datatype>* node);
     int OnlyLeftChildCount();
-    int FullChildCount();//degree 2 nodes count;
+    int OnlyLeftChildCount(root<datatype>* node);
     root<datatype>* build_tree(std::vector<datatype>& PreDisplay, std::vector<datatype>& InorderDisplay,int pre_start,int pre_end,int in_start,int int_end,unordered_map<int,int>& hashtable)
     {
         if(pre_start>pre_end)
@@ -63,27 +54,6 @@ public:
         node->left = build_tree(PreDisplay, InorderDisplay, pre_start + 1, pre_start + left_size, in_start, in_root - 1, hashtable);
         node->right = build_tree(PreDisplay, InorderDisplay, pre_start + left_size + 1, pre_end, in_root + 1, int_end, hashtable);
         return node;
-    }
-    void mygetconter(root<datatype>* node)
-    {
-        if(node->left == nullptr&&node->right == nullptr)
-        {
-            count2++;
-        }
-        if(node == nullptr)
-        {
-            return;
-        }
-        mygetconter(node->left);
-        mygetconter(node->right);
-    }
-    void onlyonechildpredisplay(root<datatype>* node)
-    {
-        if((node->left == nullptr&&node->right != nullptr)||(node->left != nullptr&& node->right == nullptr))
-        {
-            count3++;
-        }
-        if()
     }
 };
 
@@ -134,43 +104,137 @@ int binary_tree<datatype>::GetHeight(root<datatype>* node)
 template<typename datatype>
 int binary_tree<datatype>::GetCount()
 {
-    int counter = 0;
-    PreDisplay(tree_root);
-    return counter;
+    return GetCount(tree_root);
+}
+
+template<typename datatype>
+int binary_tree<datatype>::GetCount(root<datatype>* node)
+{
+    if(node == nullptr)
+    {
+        return 0;
+    }
+    int count = 0;
+    count++;
+    count += GetCount(node->left);
+    count += GetCount(node->right);
+    return count;
 }
 
 template<typename datatype>
 int binary_tree<datatype>::GetLeavesCount()
 {
-    int count2 = 0;
-    mygetconter(tree_root);
-    return count2;
+    return GetLeavesCount(tree_root);
+}
+template<typename datatype>
+int binary_tree<datatype>::GetLeavesCount(root<datatype>* node)
+{
+    if(node == nullptr)
+    {
+        return 0;
+    }
+    int count = 0;
+    if(node->left != nullptr && node ->right != nullptr)
+    {
+        count++;
+    }
+    count += GetLeavesCount(node->left);
+    count += GetLeavesCount(node->right);
+    return count;
 }
 
 template<typename datatype>
 int binary_tree<datatype>::OnlyOneChildCount()
 {
-    int count3 = 0;
+    return OnlyOneChildCount(tree_root);
+}
+
+template<typename datatype>
+int binary_tree<datatype>::OnlyOneChildCount(root<datatype>* node)
+{
+    if(node == nullptr)
+    {
+        return 0;
+    }
+    int count = 0;
+    if((node->left == nullptr && node->right != nullptr)||(node->left != nullptr && node->right == nullptr))
+    {
+        count ++;
+    }
+    count += OnlyOneChildCount(node->left);
+    count += OnlyOneChildCount(node->right);
+    return count;
 }
 
 template<typename datatype>
 int binary_tree<datatype>::OnlyLeftChildCount()
 {
+    return OnlyOneChildCount(tree_root);
+}
 
+template<typename datatype>//every count is inside function;before data is not clear;
+int binary_tree<datatype>::OnlyLeftChildCount(root<datatype>* node)
+{
+    if(node == nullptr)
+    {
+        return 0;
+    }
+    int count = 0 ;
+    if(node->left != nullptr && node ->right ==nullptr)
+    {
+        count++;
+    }
+    count += OnlyLeftChildCount(node->left);
+    count += OnlyLeftChildCount(node->right);
+    return count;
 }
 
 template<typename datatype>
 int binary_tree<datatype>::PreDisplayLevels()
 {
-
+    return PreDisplayLevels(tree_root);
 }
+
 template<typename datatype>
-int binary_tree<datatype>::FullChildCount()
+int binary_tree<datatype>::PreDisplayLevels(root<datatype>* node)
 {
-
+    if(node == nullptr)
+    {
+        return 0;
+    }
+    int count = 0;
+    if(node->left != nullptr && node->right != nullptr)
+    {
+        count++;
+    }
+    PreDisplayLevels(node->left);
+    PreDisplayLevels(node->right);
+    return count;
 }
+
 
 int main()
 {
-
+    std::vector<int> v1 = {3,9,20,15,7};
+    std::vector<int> v2 = {9,3,15,20,7};
+    binary_tree<int> tree1(v1,v2);
+    try
+    {
+        cout<<tree1.GetHeight()<<endl;
+        cout<<tree1.GetCount()<<endl;
+        cout<<tree1.GetLeavesCount()<<endl;
+        cout<<tree1.OnlyLeftChildCount()<<endl;
+        cout<<tree1.OnlyOneChildCount()<<endl;
+        cout<<tree1.PreDisplayLevels()<<endl;
+    }
+    catch(char* error)
+    {
+        cout<<error<<endl;
+    }
 }
+// 3
+// 5
+// 2
+// 0
+// 0
+// 1
